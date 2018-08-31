@@ -23,7 +23,9 @@
             <tr>
             <td>{{ article.title }}</td>
             <td><a href="/article/{{ article.id }}" class="btn btn-dark">show</a>
+                <a href="/article/edit/{{ article.id }}" class="btn btn-dark">edit</a>
                 <a href="#" class="btn btn-danger delete-article" data-id="{{ article.id }}">delete</a>
+
             </td>
             </tr>
         {% endfor %}

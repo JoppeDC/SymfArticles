@@ -62,6 +62,42 @@
             ));
         }
 
+
+        /**
+         * @Route("/article/edit/{id}", name="edit_article")
+         * Method({"GET","POST"})
+         */
+        public function editArticle(Request $request, $id){
+            $article = new Article;
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+            $form = $this->createFormBuilder($article)
+                ->add('title', TextType::class, array('attr' =>
+                    array('class' => 'form-control',)))
+                ->add('body',TextareaType::class,array(
+                    'required' => true,
+                    'attr' => array('class' => 'form-control')
+                ))
+                ->add('save', SubmitType::class,array(
+                    'label' => 'Update',
+                    'attr' => array('class' => 'btn btn-primary mt-3')
+                ))
+                ->getForm();
+
+            $form->handleRequest($request);
+            if($form->isSubmitted() and $form->isValid()){
+
+
+                $entityManager = $this->getDoctrine()->getManager(); //Manager klaarmaken
+                $entityManager->flush(); //Opslaan
+                return $this->redirectToRoute('article_list'); //Redirect naar de naam van de route
+            }
+
+            return $this->render('articles/edit.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+
         //Route voor het showen van een specifiek artikel. ID word meegegeven in de URL (Zoals je kan zien in de route)
         //We moeten deze onder de new zetten, anders ziet hij 'new' als een id
         /**
@@ -79,7 +115,6 @@
          * @Route("/article/delete/{id}")
          * Method({"DELETE"})
          */
-
         public function delete ($id){
             $article = $this->getDoctrine()->getRepository(Article::class)->find($id); //Artikel met correcte ID zoeken
             $entityManager = $this->getDoctrine()->getManager(); //Manager klaarmaken
