@@ -33,7 +33,7 @@
          */
         public function newArticle(Request $request){
             $article = new Article;
-            $form = $this->createFormBuilder($article)
+            $form = $this->createFormBuilder($article) //We gebruiken de formbuilder voor het aanmaken van de forms
                 ->add('title', TextType::class, array('attr' =>
                     array('class' => 'form-control',)))
                 ->add('body',TextareaType::class,array(
@@ -47,8 +47,8 @@
             ->getForm();
 
             $form->handleRequest($request);
-            if($form->isSubmitted() and $form->isValid()){
-                $article = $form->getData();
+            if($form->isSubmitted() and $form->isValid()){ //Als de form gesubmit word
+                $article = $form->getData(); //Neem de data uit de form, en vul het article object ermee
 
                 $entityManager = $this->getDoctrine()->getManager(); //Manager klaarmaken
                 $entityManager->persist($article); //Klaarzetten om op te slaan

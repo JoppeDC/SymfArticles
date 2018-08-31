@@ -1,6 +1,6 @@
 const articles = document.getElementById("articles");
 
-if(articles){
+if(articles){ //Controlleren of articles wel een waarde heeft
     articles.addEventListener('click',(e) => { //Is er geklikt op de tabel?
         if(e.target.className === 'btn btn-danger delete-article') { // is er geklikt op een knop?
             if(confirm('Ben je zeker?')){ //Bevestiging door de gebruiker
