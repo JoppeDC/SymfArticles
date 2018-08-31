@@ -75,7 +75,21 @@
             ));
         }
 
-        //Tijdelijke functie voor articles in te vullen
+        /**
+         * @Route("/article/delete/{id}")
+         * Method({"DELETE"})
+         */
+
+        public function delete ($id){
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id); //Artikel met correcte ID zoeken
+            $entityManager = $this->getDoctrine()->getManager(); //Manager klaarmaken
+            $entityManager->remove($article); //Klaarzetten om te verwijderen
+            $entityManager->flush(); //Bevestigen
+            $response = new Response();
+            $response->send();
+        }
+
+        //Tijdelijke functie voor articles in te vullen voordat de newArticle functie er was
 //        /**
 //         * @Route("/article/save")
 //         */
