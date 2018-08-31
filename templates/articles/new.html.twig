@@ -10,12 +10,13 @@
 {% endblock %}
 
 {% block title %}
-    {{ article.title }}
+    New Article
 {% endblock %}
 
 {% block body %}
-   <h1>{{ article.title }}</h1>
-    <p>{{ article.body }}</p>
-    <hr>
-    <a href="/">Go Back</a>
+   {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
 {% endblock %}

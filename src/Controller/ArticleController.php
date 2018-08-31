@@ -7,6 +7,10 @@
  */
     namespace App\Controller;
     use App\Entity\Article;
+    use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+    use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,7 +27,43 @@
             ));
         }
 
+        /**
+         * @Route("/article/new", name="new_article")
+         * Method({"GET","POST"})
+         */
+        public function newArticle(Request $request){
+            $article = new Article;
+            $form = $this->createFormBuilder($article)
+                ->add('title', TextType::class, array('attr' =>
+                    array('class' => 'form-control',)))
+                ->add('body',TextareaType::class,array(
+                'required' => true,
+                    'attr' => array('class' => 'form-control')
+                ))
+                ->add('save', SubmitType::class,array(
+                    'label' => 'Create',
+                    'attr' => array('class' => 'btn btn-primary mt-3')
+                ))
+            ->getForm();
+
+            $form->handleRequest($request);
+            if($form->isSubmitted() and $form->isValid()){
+                $article = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager(); //Manager klaarmaken
+                $entityManager->persist($article); //Klaarzetten om op te slaan
+                $entityManager->flush(); //Opslaan
+
+                return $this->redirectToRoute('article_list'); //Redirect naar de naam van de route
+            }
+
+            return $this->render('articles/new.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+
         //Route voor het showen van een specifiek artikel. ID word meegegeven in de URL (Zoals je kan zien in de route)
+        //We moeten deze onder de new zetten, anders ziet hij 'new' als een id
         /**
          * @Route("/article/{id}", name="article_show")
          */
