@@ -23,6 +23,7 @@
             ));
         }
 
+        //Route voor het showen van een specifiek artikel. ID word meegegeven in de URL (Zoals je kan zien in de route)
         /**
          * @Route("/article/{id}", name="article_show")
          */
