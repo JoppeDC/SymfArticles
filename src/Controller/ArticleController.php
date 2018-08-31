@@ -124,20 +124,5 @@
             $response->send();
         }
 
-        //Tijdelijke functie voor articles in te vullen voordat de newArticle functie er was
-//        /**
-//         * @Route("/article/save")
-//         */
-//        public function save(){
-//            $entityManager = $this->getDoctrine()->getManager();
-//
-//            $article = new Article();
-//            $article->setTitle('This is the second article');
-//            $article->setBody('In our second article we will...');
-//
-//            $entityManager->persist($article); //Persist zegt dat we iets uitendelijk willen opslaan
-//            $entityManager->flush(); //Hier gaan we het effectief opslaan
-//
-//            return new Response('Saved an article with the id of ' . $article->getId());
-//        }
+       
     }
