@@ -14,26 +14,8 @@
 {% endblock %}
 
 {% block body %}
-    {% if articles %}
-
-    <table class="table table-striped" width="100%">
-        <thead>
-        <tr>
-            <th>Article Title</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-            <td>{{ article.title }}</td>
-            <td><a href="/article/{{ article.id }}" class="btn btn-dark">show</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No articles found</p>
-    {% endif %}
-
+   <h1>{{ article.title }}</h1>
+    <p>{{ article.body }}</p>
+    <hr>
+    <a href="/">Go Back</a>
 {% endblock %}

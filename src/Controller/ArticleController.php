@@ -14,29 +14,40 @@
 
         //Routes kunnen ofwel hier ofwel in de routes.yaml geconfigureerd worden
         /**
-         * @Route("/")
+         * @Route("/", name="article_list")
          */
         public function index(){
-            $articles = ['Article 1', 'Article 2'];
+            $articles = $this->getDoctrine()->getRepository(Article::class)->findAll(); //Alle articles uit de db halen
             return $this->render('articles/index.html.twig', array(
                 'articles' => $articles
             ));
         }
 
-        //Tijdelijke functie voor articles in te vullen
         /**
-         * @Route("/article/save")
+         * @Route("/article/{id}", name="article_show")
          */
-        public function save(){
-            $entityManager = $this->getDoctrine()->getManager();
+        public function showArticle($id){
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-            $article = new Article();
-            $article->setTitle('This is the second article');
-            $article->setBody('In our second article we will...');
-
-            $entityManager->persist($article); //Persist zegt dat we iets uitendelijk willen opslaan
-            $entityManager->flush(); //Hier gaan we het effectief opslaan
-
-            return new Response('Saved an article with the id of ' . $article->getId());
+            return $this->render('articles/show.html.twig', array(
+                'article' => $article
+            ));
         }
+
+        //Tijdelijke functie voor articles in te vullen
+//        /**
+//         * @Route("/article/save")
+//         */
+//        public function save(){
+//            $entityManager = $this->getDoctrine()->getManager();
+//
+//            $article = new Article();
+//            $article->setTitle('This is the second article');
+//            $article->setBody('In our second article we will...');
+//
+//            $entityManager->persist($article); //Persist zegt dat we iets uitendelijk willen opslaan
+//            $entityManager->flush(); //Hier gaan we het effectief opslaan
+//
+//            return new Response('Saved an article with the id of ' . $article->getId());
+//        }
     }
