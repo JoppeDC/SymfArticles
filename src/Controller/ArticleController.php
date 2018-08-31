@@ -6,10 +6,13 @@
  * Time: 11:18
  */
     namespace App\Controller;
+    use App\Entity\Article;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     class ArticleController extends Controller{
+
+        //Routes kunnen ofwel hier ofwel in de routes.yaml geconfigureerd worden
         /**
          * @Route("/")
          */
@@ -18,5 +21,22 @@
             return $this->render('articles/index.html.twig', array(
                 'articles' => $articles
             ));
+        }
+
+        //Tijdelijke functie voor articles in te vullen
+        /**
+         * @Route("/article/save")
+         */
+        public function save(){
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $article = new Article();
+            $article->setTitle('This is the second article');
+            $article->setBody('In our second article we will...');
+
+            $entityManager->persist($article); //Persist zegt dat we iets uitendelijk willen opslaan
+            $entityManager->flush(); //Hier gaan we het effectief opslaan
+
+            return new Response('Saved an article with the id of ' . $article->getId());
         }
     }
