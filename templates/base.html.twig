@@ -6,7 +6,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    {{ include('inc/navbar.html.twig') }}
+    <div class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    </div>
+     {% block javascripts %}{% endblock %}
     </body>
 </html>
