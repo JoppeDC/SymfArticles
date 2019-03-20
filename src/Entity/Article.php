@@ -36,11 +36,9 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getBody(): ?string
@@ -48,10 +46,8 @@ class Article
         return $this->body;
     }
 
-    public function setBody(string $body): self
+    public function setBody(string $body): void
     {
         $this->body = $body;
-
-        return $this;
     }
 }
